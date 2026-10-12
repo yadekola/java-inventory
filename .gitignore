@@ -1,0 +1,11 @@
+.env
+target/
+*.dump
+.idea/
+*.iml
+node_modules/
+dist/
+
+# Compiled Java and IDE output
+bin/
+*.class
