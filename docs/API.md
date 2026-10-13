@@ -1,6 +1,6 @@
 # API reference
 
-Frontend proxy base: http://localhost:8080/api. Direct base: http://localhost:8080/api. Send application/json for POST and PUT. No authentication is implemented. Use paths without trailing slashes.
+Frontend proxy base: http://localhost:8083/api. Direct base: http://localhost:8083/api. Send application/json for POST and PUT. No authentication is implemented. Use paths without trailing slashes.
 
 | Method | Path | Purpose | Success |
 |---|---|---|---|
@@ -66,7 +66,7 @@ Validation messages use Java field names, so `priceMinor` may appear in details 
 ## PowerShell example
 
 ```powershell
-$base = 'http://localhost:8080/api'
+$base = 'http://localhost:8083/api'
 $body = @{sku='DEMO-001'; name='USB hub'; category='Accessories'; price_minor=350000; quantity=5} | ConvertTo-Json
 $p = Invoke-RestMethod "$base/products" -Method Post -ContentType 'application/json' -Body $body
 $id = $p.data.id
@@ -80,9 +80,9 @@ Invoke-RestMethod "$base/products/$id" -Method Delete
 ## curl example (Linux/macOS)
 
 ```bash
-curl http://localhost:8080/actuator/health/readiness
-curl -i -X POST http://localhost:8080/api/products -H 'Content-Type: application/json' -d '{"sku":"DEMO-001","name":"USB hub","category":"Accessories","price_minor":350000,"quantity":5}'
+curl http://localhost:8083/actuator/health/readiness
+curl -i -X POST http://localhost:8083/api/products -H 'Content-Type: application/json' -d '{"sku":"DEMO-001","name":"USB hub","category":"Accessories","price_minor":350000,"quantity":5}'
 # Replace 1 with the returned ID.
-curl http://localhost:8080/api/products/1
-curl -i -X DELETE http://localhost:8080/api/products/1
+curl http://localhost:8083/api/products/1
+curl -i -X DELETE http://localhost:8083/api/products/1
 ```
