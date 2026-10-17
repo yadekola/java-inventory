@@ -25,7 +25,7 @@ A full-stack inventory management application built with Spring Boot, React, and
 
 Watch the inventory management application demonstration.
 
-[▶ Watch the Inventory Demo](docs/demo/inventory-demo.webm)
+https://github.com/user-attachments/assets/905a774b-5461-4e5a-8c0c-ea634b4ce0ef
 
 The video demonstrates the application's interface and functionality.
 
