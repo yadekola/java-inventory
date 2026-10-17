@@ -4,21 +4,30 @@ A full-stack inventory management application built with Spring Boot, React, and
 
 ## Table of Contents
 
-- [1. Project Overview](#1-project-overview)
-- [2. Application Features](#2-application-features)
-- [3. Technology Stack](#3-technology-stack)
-- [4. Architecture](#4-architecture)
-- [5. Repository Structure](#5-repository-structure)
-- [6. Prerequisites](#6-prerequisites)
-- [7. Getting Started](#7-getting-started)
-- [8. Running and Verifying the Application](#8-running-and-verifying-the-application)
-- [9. Testing and Building](#9-testing-and-building)
-- [10. GitHub Actions CI](#10-github-actions-ci)
-- [11. Git Workflow](#11-git-workflow)
-- [12. Troubleshooting](#12-troubleshooting)
-- [13. Security Considerations](#13-security-considerations)
-- [14. Stopping the Application](#14-stopping-the-application)
-- [15. Current Status and Future Improvements](#15-current-status-and-future-improvements)
+1. [Project Overview](#1-project-overview)
+2. [Application Features](#2-application-features)
+3. [Technology Stack](#3-technology-stack)
+4. [Architecture](#4-architecture)
+5. [Repository Structure](#5-repository-structure)
+6. [Prerequisites](#6-prerequisites)
+7. [Getting Started](#7-getting-started)
+8. [Running and Verifying the Application](#8-running-and-verifying-the-application)
+9. [Testing and Building](#9-testing-and-building)
+10. [GitHub Actions CI](#10-github-actions-ci)
+11. [Git Workflow](#11-git-workflow)
+12. [Troubleshooting](#12-troubleshooting)
+13. [Security Considerations](#13-security-considerations)
+14. [Stopping the Application](#14-stopping-the-application)
+15. [Current Status and Future Improvements](#15-current-status-and-future-improvements)
+16. [Learning Outcomes](#learning-outcomes)
+
+## Application Demo
+
+Watch the inventory management application demonstration.
+
+[▶ Watch the Inventory Demo](docs/demo/inventory-demo.webm)
+
+The video demonstrates the application's interface and functionality.
 
 ## 1. Project Overview
 
@@ -36,7 +45,7 @@ The project also demonstrates practical DevOps practices, including:
 - Technical documentation and operational verification.
 
 **Project repository:**
-https://github.com/yadekola/java-inventory
+[https://github.com/yadekola/java-inventory](https://github.com/yadekola/java-inventory)
 
 ## 2. Application Features
 
@@ -87,7 +96,7 @@ The Spring Boot application handles product operations, validation, and database
 
 PostgreSQL stores product records. A named Docker volume preserves database files across ordinary container restarts and removal.
 
-### Request flow
+### Request Flow
 
 1. A user opens the frontend in a browser.
 2. The frontend sends a request to an `/api` endpoint.
@@ -95,12 +104,12 @@ PostgreSQL stores product records. A named Docker volume preserves database file
 4. The backend processes the request and communicates with PostgreSQL at `db:5432`.
 5. The API returns a response to the frontend.
 
-### Service ports
+### Service Ports
 
-| Service | Container port | Host access |
+| Service | Container Port | Host Access |
 |---|---|---|
-| Frontend | 5173 | http://localhost:5173 |
-| Backend API | 8080 | http://localhost:8083 |
+| Frontend | 5173 | [http://localhost:5173](http://localhost:5173) |
+| Backend API | 8080 | [http://localhost:8083](http://localhost:8083) |
 | PostgreSQL | 5432 | Not published to the host |
 
 The API host port is configurable using `API_PORT`. The default is `8083`.
@@ -124,6 +133,8 @@ java-inventory/
 │   ├── package-lock.json
 │   └── src/
 ├── docs/
+│   ├── demo/
+│   │   └── inventory-demo.webm
 │   └── README.md-backup.md
 ├── scripts/
 │   └── smoke.ps1
@@ -136,7 +147,7 @@ java-inventory/
 
 This is a simplified view of the important files.
 
-### Key files
+### Key Files
 
 - `docker-compose.yaml`: Defines the database, API, frontend, networking, ports, and health checks.
 - `backend/pom.xml`: Defines backend dependencies and Maven build configuration.
@@ -146,6 +157,7 @@ This is a simplified view of the important files.
 - `.gitignore`: Excludes local secrets and generated files from Git.
 - `.github/workflows/ci.yml`: Defines automated CI jobs.
 - `scripts/smoke.ps1`: Provides an end-to-end smoke test.
+- `docs/demo/inventory-demo.webm`: Application demonstration video.
 - `docs/README.md-backup.md`: Backup of the previous README.
 
 ## 6. Prerequisites
@@ -165,7 +177,7 @@ For the initial setup, use Docker Compose to run the application services.
 
 ## 7. Getting Started
 
-### Step 1: Clone the repository
+### Step 1: Clone the Repository
 
 Run:
 
@@ -180,7 +192,7 @@ Confirm the working directory and Git status:
 git status
 ```
 
-### Step 2: Configure environment variables
+### Step 2: Configure Environment Variables
 
 Create a local environment file from the example:
 
@@ -194,7 +206,7 @@ The Compose configuration requires `POSTGRES_PASSWORD`; it does not silently pro
 
 **Security:** Never commit a real `.env` file or publish database credentials. Keep `.env.example` free of actual secrets.
 
-### Step 3: Build and start the application
+### Step 3: Build and Start the Application
 
 From the project root, run:
 
@@ -204,7 +216,7 @@ docker compose up --build -d
 
 Docker Compose builds the application images where build configurations are provided, creates the services and network, and starts the containers in the background.
 
-### Step 4: Check service status
+### Step 4: Check Service Status
 
 Run:
 
@@ -218,13 +230,13 @@ If a service is unhealthy or exits, inspect its logs before proceeding.
 
 ## 8. Running and Verifying the Application
 
-### Open the frontend
+### Open the Frontend
 
 Visit:
 
-http://localhost:5173
+[http://localhost:5173](http://localhost:5173)
 
-### Check the frontend response
+### Check the Frontend Response
 
 Run:
 
@@ -234,7 +246,7 @@ curl -I http://localhost:5173
 
 An HTTP `200` response indicates that the frontend server is responding successfully.
 
-### Check the product API
+### Check the Product API
 
 Run:
 
@@ -244,17 +256,17 @@ curl http://localhost:5173/api/products
 
 The request uses the frontend proxy to reach the backend. A successful response should contain JSON with pagination information and a product data array. The actual records depend on the database contents.
 
-### Check API health
+### Check API Health
 
 The API is published on host port `8083`.
 
-Readiness:
+**Readiness:**
 
 ```bash
 curl http://localhost:8083/actuator/health/readiness
 ```
 
-Liveness:
+**Liveness:**
 
 ```bash
 curl http://localhost:8083/actuator/health/liveness
@@ -262,7 +274,7 @@ curl http://localhost:8083/actuator/health/liveness
 
 The readiness endpoint indicates whether the application is ready to serve requests. The liveness endpoint reports application liveness.
 
-### Inspect application logs
+### Inspect Application Logs
 
 View all service logs:
 
@@ -286,7 +298,7 @@ docker compose logs -f db
 
 Press `Ctrl+C` to stop following logs. This does not stop the containers.
 
-### Run the end-to-end smoke test
+### Run the End-to-End Smoke Test
 
 In PowerShell, from the project root, run:
 
@@ -300,7 +312,7 @@ Run the test against a suitable development database because it creates and dele
 
 ## 9. Testing and Building
 
-### Backend tests
+### Backend Tests
 
 The backend uses Maven. To run the tests directly, execute:
 
@@ -317,7 +329,7 @@ Return to the project root when finished:
 cd ..
 ```
 
-### Frontend production build
+### Frontend Production Build
 
 Run:
 
@@ -347,7 +359,7 @@ The workflow file is:
 .github/workflows/ci.yml
 ```
 
-### Workflow triggers
+### Workflow Triggers
 
 The workflow runs when:
 
@@ -381,7 +393,7 @@ The workflow:
 
 The job runs from the `frontend` directory.
 
-### Verify a CI run
+### Verify a CI Run
 
 1. Push a commit to GitHub.
 2. Open the repository's Actions tab.
@@ -393,7 +405,7 @@ The job runs from the `frontend` directory.
 
 View workflow runs:
 
-https://github.com/yadekola/java-inventory/actions/workflows/ci.yml
+[Java Inventory CI on GitHub](https://github.com/yadekola/java-inventory/actions/workflows/ci.yml)
 
 A successful CI run confirms that the configured tests and build passed. It does not mean the application has been deployed to production.
 
@@ -411,22 +423,23 @@ Review unstaged changes:
 git diff
 ```
 
-Stage the README:
+Stage the README and demo video:
 
 ```bash
-git add README.md
+git add README.md docs/demo/inventory-demo.webm
 ```
 
 Review staged changes:
 
 ```bash
-git diff --cached
+git diff --cached --stat
+git status
 ```
 
 Commit:
 
 ```bash
-git commit -m "Improve project documentation"
+git commit -m "docs: add application demo to README"
 ```
 
 Push to GitHub:
@@ -439,7 +452,7 @@ Before committing, inspect staged files and make sure no credentials, local envi
 
 ## 12. Troubleshooting
 
-### Docker is not running
+### Docker Is Not Running
 
 Start Docker Desktop and check:
 
@@ -448,7 +461,7 @@ docker version
 docker compose version
 ```
 
-### A container is unhealthy or exits
+### A Container Is Unhealthy or Exits
 
 Check service status and logs:
 
@@ -461,7 +474,7 @@ docker compose logs frontend
 
 Investigate the first relevant error in the logs.
 
-### Database connection fails
+### Database Connection Fails
 
 Check that:
 
@@ -470,7 +483,7 @@ Check that:
 - The backend uses `DB_HOST=db` and `DB_PORT=5432`.
 - Database name and username match the Compose configuration.
 
-### The frontend loads but API requests fail
+### The Frontend Loads but API Requests Fail
 
 Check:
 
@@ -482,7 +495,7 @@ docker compose logs frontend
 
 Confirm that the frontend's `API_PROXY_TARGET` is `http://api:8080` in the Compose environment and that the API becomes healthy.
 
-### The API is not ready
+### The API Is Not Ready
 
 The first startup may take time while the application initializes and runs database migrations. Inspect:
 
@@ -496,13 +509,13 @@ Then retry the readiness endpoint:
 curl http://localhost:8083/actuator/health/readiness
 ```
 
-### GitHub Actions fails
+### GitHub Actions Fails
 
 Open the failed run in GitHub's Actions tab. Select the failed job and inspect the step logs.
 
 For backend failures, examine the Maven test output. For frontend failures, examine `npm ci` and `npm run build`. Correct the underlying issue, verify locally where practical, and push the fix.
 
-### A host port is already in use
+### A Host Port Is Already in Use
 
 Check which process is using the conflicting port or change the host-side port mapping in `docker-compose.yaml`. Update the documented URL if the port changes.
 
@@ -542,7 +555,7 @@ docker compose down -v
 
 ## 15. Current Status and Future Improvements
 
-### Implemented and verified
+### Implemented and Verified
 
 - Git repository hosted on GitHub.
 - Docker Compose configuration for the frontend, backend, and PostgreSQL.
@@ -554,7 +567,9 @@ docker compose down -v
 - Initial CI run completed successfully.
 - Local application and API checks performed.
 
-### Potential future improvements
+**Verification note:** Backend tests and the frontend production build have passed in the recorded checks. Docker-based runtime verification should be treated as pending until the full Compose application has been started and tested successfully in the current environment.
+
+### Potential Future Improvements
 
 - Build and publish versioned Docker images automatically.
 - Publish images to GitHub Container Registry.
